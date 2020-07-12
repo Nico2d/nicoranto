@@ -1,88 +1,61 @@
 import React from "react"
 import Header from "../components/header"
-import { StaticQuery, graphql } from "gatsby"
 import styled, { createGlobalStyle } from "styled-components"
-import backgroundImage from "../images/c1.jpg"
+import backgroundImage from "../images/bg.jpg"
 import Layout from "../layout/layout"
 import Cart from "../components/cart"
+import Container from "../components/container"
+import FoodScene from "../components/food-scene"
+import SearchSection from "../template/search-section"
 
 const GlobalStyle = createGlobalStyle`
-    *::-webkit-scrollbar {
-        display: none;
-    }
+  *::-webkit-scrollbar {
+    display: none;
+  }
 `
-
-const StyledImage = styled.img`
-  width: 200px;
-  height: 200px;
-`
-const StyledWrapper = styled.div`
-  position: relative;
-  /* width: 100vw !important; */
+const StyledContainer = styled.div`
+  position: fixed;
   height: 100vh;
+  width: 100vw;
   overflow: hidden;
   background-color: ${({ theme }) => theme.colors.dark};
-  z-index: -2;
+  z-index: -2; 
 `
 
 const StyledBackground = styled.div`
-  
-  position: absolute;
-  top: -1px;
-  left: -1px;
+  position: fixed;
   background-image: url(${backgroundImage});
+  background-attachment: fixed;
   background-size: cover;
-  background-position: bottom;
+  background-position: center;
   height: 100vh;
   width: 100vw;
   z-index: -1;
   filter: blur(3px) grayscale(10%);
+  transform: scale(1.1);
+`
+
+const StyledGrid = styled.div`
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 3em;
 `
 
 const Menu = () => (
   <Layout>
     <GlobalStyle />
-    <Header />
+    {/* <Header /> */}
 
-    <StyledWrapper>
+    <StyledContainer>
       <StyledBackground />
-      <Cart />
-      {/* <StaticQuery
-      query={graphql`
-        query {
-          allStrapiMenu {
-            edges {
-              node {
-                id
-                name
-                price
-                strapiId
-                description
-                image {
-                  url
-                }
-              }
-            }
-          }
-        }
-      `}
-      render={({ allStrapiMenu: { edges } }) => (
-        <div>
-          {edges.map(dish => (
-            <div key={dish.node.id}>
-              {/* <StyledImage
-                src={`http://localhost:1337${dish.node.image[0].url}`}
-                alt={dish.node.name}
-              />
-              <h3>{dish.node.name}</h3>
-              <h5>{dish.node.description}</h5>
-              <p>Price: {dish.node.price}</p> */}
-      {/* </div>
-          ))}
-        </div>
-      )}
-            />*/}
-    </StyledWrapper>
+      <Container style={{ marginTop: "50px" }}>
+        <StyledGrid>
+          <FoodScene />
+          <Cart />
+        </StyledGrid>
+      </Container>
+      <SearchSection />
+    </StyledContainer>
   </Layout>
 )
 

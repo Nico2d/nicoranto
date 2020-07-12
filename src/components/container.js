@@ -1,10 +1,9 @@
 import styled from "styled-components"
 
-const StyledComponent = styled.div`
-    max-width: ${({theme}) => theme.container}px;
-    margin: 0 auto;
-    background: red;
-    /* width: 200px; */
-`;
+const StyledContainer = styled.div`
+  max-width: ${({ theme }) => theme.container}px;
+  margin: 0 auto;
+  margin-top: ${({ withMenu }) => (withMenu ? "100px" : "0px")};
+`
 
-export default StyledComponent;
+export default StyledContainer;

@@ -26,7 +26,7 @@ const StyledLogo = styled(StyledLink)`
   margin: 0;
 `
 
-const StyledLinkWrapper = styled.div`
+const StyledLinkWrapper = styled.nav`
   float: right;
   display: inline-flex;
 `
