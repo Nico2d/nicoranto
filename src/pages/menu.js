@@ -1,25 +1,22 @@
 import React from "react"
-import Header from "../components/header"
 import styled, { createGlobalStyle } from "styled-components"
 import backgroundImage from "../images/bg.jpg"
 import Layout from "../layout/layout"
 import Cart from "../components/cart"
-import Container from "../components/container"
 import FoodScene from "../components/food-scene"
 import SearchSection from "../template/search-section"
+import { graphql } from "gatsby"
 
 const GlobalStyle = createGlobalStyle`
   *::-webkit-scrollbar {
     display: none;
   }
 `
-const StyledContainer = styled.div`
-  position: fixed;
+const StyledConatiner = styled.div`
   height: 100vh;
   width: 100vw;
-  overflow: hidden;
-  background-color: ${({ theme }) => theme.colors.dark};
-  z-index: -2; 
+  display: flex;
+  flex-flow: column;
 `
 
 const StyledBackground = styled.div`
@@ -35,28 +32,57 @@ const StyledBackground = styled.div`
   transform: scale(1.1);
 `
 
-const StyledGrid = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-gap: 3em;
+const FlexWrapper = styled.div`
+  width: 100vw;
+  max-width: ${({ theme }) => theme.container}px;
+  margin: 0 auto;
+  display: flex;
 `
 
-const Menu = () => (
+const Menu = ({ data }) => (
   <Layout>
     <GlobalStyle />
     {/* <Header /> */}
-
-    <StyledContainer>
+    <StyledConatiner>
       <StyledBackground />
-      <Container style={{ marginTop: "50px" }}>
-        <StyledGrid>
-          <FoodScene />
-          <Cart />
-        </StyledGrid>
-      </Container>
+
+      {/* <Container style={{ marginTop: "50px" }}> */}
+      <FlexWrapper>
+        <FoodScene style={{ flexGrow: 1 }} />
+        <Cart />
+      </FlexWrapper>
+      {/* </Container> */}
+
       <SearchSection />
-    </StyledContainer>
+    </StyledConatiner>
+
+    {/* <Container style={{ marginTop: "50px" }}> */}
+    {/* <StyledGrid> */}
+    {/* <FoodScene /> */}
+    {/* <Cart /> */}
+    {/* </StyledGrid> */}
+    {/* </Container> */}
+    {/* <SearchSection /> */}
   </Layout>
 )
 
 export default Menu
+
+export const query = graphql`
+  query {
+    allStrapiMenu {
+      edges {
+        node {
+          id
+          name
+          price
+          strapiId
+          description
+          image {
+            url
+          }
+        }
+      }
+    }
+  }
+`

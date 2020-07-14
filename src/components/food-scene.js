@@ -4,6 +4,7 @@ import StyledButton from "../components/button"
 
 const StyledContainer = styled.div`
   position: relative;
+  margin-right: 3rem;
 `
 const StyledImage = styled.img`
   position: absolute;
@@ -28,7 +29,10 @@ const handlerClick = () => {
 }
 
 const StyledContentWrapper = styled.div`
-  margin-top: 5rem;
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  justify-content: center;
 `
 
 const FoodScene = () => (

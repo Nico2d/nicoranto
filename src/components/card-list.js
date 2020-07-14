@@ -1,6 +1,8 @@
-import React from "react"
+import React, { Component } from "react"
 import styled from "styled-components"
 import { StaticQuery, graphql } from "gatsby"
+import { connect } from "react-redux"
+import { addToCart } from "../actions/cartActions"
 
 const Card = styled.div`
   width: 130px;
@@ -9,6 +11,7 @@ const Card = styled.div`
   border-radius: 1rem;
   margin-right: 8px;
   overflow: hidden;
+  cursor: pointer;
 `
 
 const CardListWrapper = styled.div`
@@ -25,7 +28,7 @@ const StyledName = styled.h6`
 const ImageContainer = styled.div`
   height: 100px;
   overflow: hidden;
-  margin: 10px 0 ;
+  margin: 10px 0;
   position: relative;
 
   ::after {
@@ -40,46 +43,67 @@ const ImageContainer = styled.div`
   }
 `
 
-const CardList = () => (
-  <StaticQuery
-    query={graphql`
-      query {
-        allStrapiMenu {
-          edges {
-            node {
-              id
-              name
-              price
-              strapiId
-              description
-              image {
-                url
+class CardList extends Component {
+  handleClick = id => {
+    this.props.addToCart(id)
+  }
+
+  render() {
+    return (
+      <StaticQuery
+        query={graphql`
+          query {
+            allStrapiMenu {
+              edges {
+                node {
+                  id
+                  name
+                  price
+                  strapiId
+                  description
+                  image {
+                    url
+                  }
+                }
               }
             }
           }
-        }
-      }
-    `}
-    render={({ allStrapiMenu: { edges } }) => (
-      <CardListWrapper>
-        {console.log(edges)}
-        {edges.map(dish => (
-          <Card key={dish.node.id}>
-            <ImageContainer>
-              <img
-                src={`http://localhost:1337${dish.node.image[0].url}`}
-                alt={dish.node.name}
-                // style={{marginTop: "5px"}}
-              />
-            </ImageContainer>
+        `}
+        render={({ allStrapiMenu: { edges } }) => (
+          <CardListWrapper>
+            {edges.map(dish => (
+              <Card key={dish.node.id} onDoubleClick={()=>{this.handleClick(dish.node.strapiId)}}>
+                <ImageContainer>
+                  <img
+                    src={`http://localhost:1337${dish.node.image[0].url}`}
+                    alt={dish.node.name}
+                    // style={{marginTop: "5px"}}
+                  />
+                </ImageContainer>
 
-            <StyledName>{dish.node.name}</StyledName>
-            {/* <p>Price: {dish.node.price}</p> */}
-          </Card>
-        ))}
-      </CardListWrapper>
-    )}
-  />
-)
+                <StyledName>{dish.node.name}</StyledName>
+                {/* <p>Price: {dish.node.price}</p> */}
+              </Card>
+            ))}
+          </CardListWrapper>
+        )}
+      />
+    )
+  }
+}
 
-export default CardList
+const mapStateToProps = state => {
+  return {
+    items: state.items,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addToCart: id => {
+      dispatch(addToCart(id))
+    },
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CardList)

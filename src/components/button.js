@@ -1,7 +1,6 @@
 import styled from "styled-components"
 
 const primary = ({ theme }) => theme.colors.primary;
-const dark = ({ theme }) => theme.colors.dark;
 
 const StyledButton = styled.button`
   border: 2px solid ${primary};
