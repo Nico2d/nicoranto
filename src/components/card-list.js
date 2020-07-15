@@ -50,65 +50,55 @@ const StyledPrice = styled.p`
   font-size: 16px;
 `
 
-class CardList extends Component {
-  handleDoubleClick = product => {
-    this.props.addToCart(product)
-  }
-
-  handleClick = product => {
-    this.props.onFocus(product)
-  }
-
-  render() {
-    return (
-      <StaticQuery
-        query={graphql`
-          query {
-            allStrapiMenu {
-              edges {
-                node {
-                  id
-                  name
-                  price
-                  strapiId
-                  description
-                  image {
-                    url
-                  }
-                }
+const CardList = props => (
+  <StaticQuery
+    query={graphql`
+      query {
+        allStrapiMenu {
+          edges {
+            node {
+              id
+              name
+              price
+              strapiId
+              description
+              image {
+                url
               }
             }
           }
-        `}
-        render={({ allStrapiMenu: { edges } }) => (
-          <CardListWrapper>
-            {edges.map(dish => (
-              <Card
-                key={dish.node.id}
-                onDoubleClick={() => {
-                  this.handleDoubleClick(dish.node)
-                }}
-                onClick={() => {
-                  this.handleClick(dish.node)
-                }}
-              >
-                <ImageContainer>
-                  <img
-                    src={`http://localhost:1337${dish.node.image[0].url}`}
-                    alt={dish.node.name}
-                  />
-                </ImageContainer>
+        }
+      }
+    `}
+    render={({ allStrapiMenu: { edges } }) => (
+      <CardListWrapper>
+        {edges
+          .filter(query => query.node.name.toLowerCase().includes(props.search))
+          .map(dish => (
+            <Card
+              key={dish.node.id}
+              onDoubleClick={() => {
+                props.addToCart(dish.node)
+              }}
+              onClick={() => {
+                props.onFocus(dish.node)
+              }}
+            >
+              <ImageContainer>
+                <img
+                  src={`http://localhost:1337${dish.node.image[0].url}`}
+                  alt={dish.node.name}
+                />
+              </ImageContainer>
 
-                <StyledName>{dish.node.name}</StyledName>
-                <StyledPrice>{dish.node.price}zł</StyledPrice>
-              </Card>
-            ))}
-          </CardListWrapper>
-        )}
-      />
-    )
-  }
-}
+              <StyledName>{dish.node.name}</StyledName>
+              <StyledPrice>{dish.node.price}zł</StyledPrice>
+            </Card>
+          ))}
+      </CardListWrapper>
+    )}
+  />
+)
 
 const mapStateToProps = state => {
   return {

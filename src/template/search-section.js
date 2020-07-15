@@ -1,9 +1,8 @@
 import styled from "styled-components"
-import React from "react"
+import React, { useState } from "react"
 import Searchbar from "../components/searchbar"
 import Container from "../components/container"
 import CardList from "../components/card-list"
-import { useState } from "react"
 
 const StyledSearchSection = styled.section`
   width: 100vw;
@@ -22,16 +21,20 @@ const StyledTip = styled.span`
   transform: translate(-50%, 11px);
 `
 const SearchSection = props => {
-  const changeFocus = product => {
-    props.callBack(product)
-  }
+  const [query, setQuery] = useState("")
 
   return (
     <StyledSearchSection>
-      <Container style={{ overflow: "scroll" }}>
-        <Searchbar />
+      <Container >
+        <Searchbar query={query => setQuery(query)} />
         <StyledTip>*Użyj podwójnego kliknięcia aby dodać posiłek</StyledTip>
-        <CardList onFocus={changeFocus} />
+
+        <div style={{overflow: "scroll", width: "100%"}}>
+          <CardList
+            onFocus={product => props.callBack(product)}
+            search={query}
+          />
+        </div>
       </Container>
     </StyledSearchSection>
   )

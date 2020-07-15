@@ -17,7 +17,6 @@ const StyledSearchbar = styled.input`
   border: none;
   height: 35px;
   color: ${primary};
-  /* text-shadow: 2px 2px 2px rgba(0, 0, 0, 1); */
   font-size: 16px;
 
   :focus {
@@ -36,11 +35,21 @@ const StyledIcon = styled.i`
   color: ${primary};
 `
 
-const Searchbar = () => (
-  <StyledSearchbarWrapper>
-    <StyledIcon as={FiSearch} />
-    <StyledSearchbar type="text" placeholder="Szukaj" />
-  </StyledSearchbarWrapper>
-)
+const Searchbar = props => {
+  const changeHanlder = e => {
+    props.query(e.target.value.toLowerCase())
+  }
+
+  return (
+    <StyledSearchbarWrapper>
+      <StyledIcon as={FiSearch} />
+      <StyledSearchbar
+        type="text"
+        placeholder="Szukaj"
+        onChange={changeHanlder}
+      />
+    </StyledSearchbarWrapper>
+  )
+}
 
 export default Searchbar
