@@ -40,11 +40,26 @@ const StyledWrapper = styled.div`
   font-size: 16px;
 `
 
-const StyledListWrapper = styled.table`
+const StyledListWrapper = styled.div`
   margin: 0;
+  padding-right: 7px;
   overflow: scroll;
-  max-height: 200px;
+  max-height: 130px;
   width: 100%;
+  overflow-x: hidden;
+
+  ::-webkit-scrollbar {
+    all: unset;
+    width: 3px;
+    border-radius: 3px;
+    color: red;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    left: 3px;
+    background: rgba(255, 255, 0, 0.8);
+    border-radius: 4px;
+  }
 
   th {
     padding: 0;
@@ -77,6 +92,8 @@ const Price = styled.th`
   text-align: right;
 `
 const StyledQuantityWrapper = styled.th`
+  white-space: nowrap;
+
   .StyledIcon {
     color: ${({ theme }) => theme.colors.primary};
     font-size: 16px;
@@ -122,37 +139,38 @@ class Cart extends Component {
       <StyledCart>
         <StyledWrapper>
           <StyledHeader>Koszyk:</StyledHeader>
-
           <StyledListWrapper>
-            <tbody>
-              {this.props.items.length ? (
-                this.props.items.map(item => (
-                  <tr key={item.id}>
-                    <th>{item.name}</th>
-                    <StyledQuantityWrapper>
-                      <FiMinusCircle
-                        className="StyledIcon"
-                        onClick={() => {
-                          this.handleSubtractQuantity(item.id)
-                        }}
-                      />
-                      <StyledQuantity>x{item.quantity}</StyledQuantity>
-                      <FiPlusCircle
-                        className="StyledIcon"
-                        onClick={() => {
-                          this.handleAddQuantity(item.id)
-                        }}
-                      />
-                    </StyledQuantityWrapper>
-                    <Price>{item.price * item.quantity}zł</Price>
+            <table>
+              <tbody>
+                {this.props.items.length ? (
+                  this.props.items.map(item => (
+                    <tr key={item.id}>
+                      <th>{item.name}</th>
+                      <StyledQuantityWrapper>
+                        <FiMinusCircle
+                          className="StyledIcon"
+                          onClick={() => {
+                            this.handleSubtractQuantity(item.id)
+                          }}
+                        />
+                        <StyledQuantity>x{item.quantity}</StyledQuantity>
+                        <FiPlusCircle
+                          className="StyledIcon"
+                          onClick={() => {
+                            this.handleAddQuantity(item.id)
+                          }}
+                        />
+                      </StyledQuantityWrapper>
+                      <Price>{item.price * item.quantity}zł</Price>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <th>-</th>
                   </tr>
-                ))
-              ) : (
-                <tr>
-                  <th>-</th>
-                </tr>
-              )}
-            </tbody>
+                )}
+              </tbody>
+            </table>
           </StyledListWrapper>
 
           <StyledFoot>

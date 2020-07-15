@@ -1,9 +1,12 @@
 import styled from "styled-components"
 import React from "React"
+import { connect } from "react-redux"
 import StyledButton from "../components/button"
+import { addToCart } from "../actions/cartActions"
 
 const StyledContainer = styled.div`
   position: relative;
+  flex-grow: 1;
   margin-right: 3rem;
 `
 const StyledImage = styled.img`
@@ -15,7 +18,7 @@ const StyledImage = styled.img`
 const StyledName = styled.h1`
   color: ${({ theme }) => theme.colors.primary};
   text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.75);
-  font-size: 5vw;
+  font-size: 70px;
 `
 
 const StyledDescription = styled.p`
@@ -24,10 +27,6 @@ const StyledDescription = styled.p`
   font-size: 22px;
 `
 
-const handlerClick = () => {
-  console.log("Dodaj element")
-}
-
 const StyledContentWrapper = styled.div`
   display: flex;
   flex-flow: column;
@@ -35,25 +34,39 @@ const StyledContentWrapper = styled.div`
   justify-content: center;
 `
 
-const FoodScene = () => (
-  <StyledContainer>
-    <StyledImage src="http://localhost:1337/uploads/burgers_spicy_avocado_burger_7ae907abf9.png" />
+const FoodScene = props => {
+  const handlerClick = () => {
+    props.addToCart(props.selectedProduct)
+  }
 
-    <StyledContentWrapper>
-      <StyledName>Gatsby burger</StyledName>
-      <StyledDescription>
-        Klasyk z polskiej wołowiny w bułce opiekanej na złoto, z chrupiącą
-        sałatą lodową i naszym wyjątkowym sosem Oryginalnym. Czasem mniej
-        składników znaczy więcej smaku
-      </StyledDescription>
-    </StyledContentWrapper>
-    <StyledButton
-      style={{ position: "absolute", bottom: "0", right: "0" }}
-      onClick={handlerClick}
-    >
-      Dodaj
-    </StyledButton>
-  </StyledContainer>
-)
+  return (
+    <StyledContainer>
+      <StyledImage
+        src={`http://localhost:1337${props.selectedProduct.image[0].url}`}
+      />
 
-export default FoodScene
+      <StyledContentWrapper>
+        <StyledName>{props.selectedProduct.name}</StyledName>
+        <StyledDescription>
+          {props.selectedProduct.description}
+        </StyledDescription>
+      </StyledContentWrapper>
+      <StyledButton
+        style={{ position: "absolute", bottom: "0", right: "0" }}
+        onClick={handlerClick}
+      >
+        Dodaj
+      </StyledButton>
+    </StyledContainer>
+  )
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addToCart: product => {
+      dispatch(addToCart(product))
+    },
+  }
+}
+
+export default connect(null, mapDispatchToProps)(FoodScene)

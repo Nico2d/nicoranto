@@ -3,6 +3,7 @@ import React from "react"
 import Searchbar from "../components/searchbar"
 import Container from "../components/container"
 import CardList from "../components/card-list"
+import { useState } from "react"
 
 const StyledSearchSection = styled.section`
   width: 100vw;
@@ -20,15 +21,20 @@ const StyledTip = styled.span`
   left: 50%;
   transform: translate(-50%, 11px);
 `
+const SearchSection = props => {
+  const changeFocus = product => {
+    props.callBack(product)
+  }
 
-const SearchSection = () => (
-  <StyledSearchSection>
-    <Container style={{overflow: "scroll"}}>
-      <Searchbar />
-      <StyledTip>*Użyj podwójnego kliknięcia aby dodać posiłek</StyledTip>
-      <CardList />
-    </Container>
-  </StyledSearchSection>
-)
+  return (
+    <StyledSearchSection>
+      <Container style={{ overflow: "scroll" }}>
+        <Searchbar />
+        <StyledTip>*Użyj podwójnego kliknięcia aby dodać posiłek</StyledTip>
+        <CardList onFocus={changeFocus} />
+      </Container>
+    </StyledSearchSection>
+  )
+}
 
 export default SearchSection

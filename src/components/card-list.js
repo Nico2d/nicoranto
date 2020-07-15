@@ -12,6 +12,7 @@ const Card = styled.div`
   margin-right: 8px;
   overflow: hidden;
   cursor: pointer;
+  user-select: none;
 `
 
 const CardListWrapper = styled.div`
@@ -23,6 +24,7 @@ const CardListWrapper = styled.div`
 
 const StyledName = styled.h6`
   text-align: center;
+  margin: 0 5px 1px 5px;
 `
 
 const ImageContainer = styled.div`
@@ -43,9 +45,18 @@ const ImageContainer = styled.div`
   }
 `
 
+const StyledPrice = styled.p`
+  text-align: center;
+  font-size: 16px;
+`
+
 class CardList extends Component {
-  handleClick = product => {
+  handleDoubleClick = product => {
     this.props.addToCart(product)
+  }
+
+  handleClick = product => {
+    this.props.onFocus(product)
   }
 
   render() {
@@ -75,6 +86,9 @@ class CardList extends Component {
               <Card
                 key={dish.node.id}
                 onDoubleClick={() => {
+                  this.handleDoubleClick(dish.node)
+                }}
+                onClick={() => {
                   this.handleClick(dish.node)
                 }}
               >
@@ -86,7 +100,7 @@ class CardList extends Component {
                 </ImageContainer>
 
                 <StyledName>{dish.node.name}</StyledName>
-                <p>Price: {dish.node.price}</p>
+                <StyledPrice>{dish.node.price}zł</StyledPrice>
               </Card>
             ))}
           </CardListWrapper>

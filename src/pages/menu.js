@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import styled, { createGlobalStyle } from "styled-components"
 import backgroundImage from "../images/bg.jpg"
 import Layout from "../layout/layout"
@@ -39,32 +39,34 @@ const FlexWrapper = styled.div`
   display: flex;
 `
 
-const Menu = ({ data }) => (
-  <Layout>
-    <GlobalStyle />
-    {/* <Header /> */}
-    <StyledConatiner>
-      <StyledBackground />
+const Menu = ({ data }) => {
+  const [selectedProduct, setSelectedProduct] = useState(
+    data.allStrapiMenu.edges[0].node
+  )
 
-      {/* <Container style={{ marginTop: "50px" }}> */}
-      <FlexWrapper>
-        <FoodScene style={{ flexGrow: 1 }} />
-        <Cart />
-      </FlexWrapper>
-      {/* </Container> */}
+  const changeFocus = product => {
+    setSelectedProduct(product)
+  }
 
-      <SearchSection />
-    </StyledConatiner>
+  return (
+    <Layout>
+      <GlobalStyle />
+      <StyledConatiner>
+        <StyledBackground />
 
-    {/* <Container style={{ marginTop: "50px" }}> */}
-    {/* <StyledGrid> */}
-    {/* <FoodScene /> */}
-    {/* <Cart /> */}
-    {/* </StyledGrid> */}
-    {/* </Container> */}
-    {/* <SearchSection /> */}
-  </Layout>
-)
+        <FlexWrapper>
+          <FoodScene
+            style={{ flexGrow: 1 }}
+            selectedProduct={selectedProduct}
+          />
+          <Cart />
+        </FlexWrapper>
+
+        <SearchSection callBack={changeFocus} />
+      </StyledConatiner>
+    </Layout>
+  )
+}
 
 export default Menu
 
