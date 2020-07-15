@@ -5,10 +5,10 @@ import {
   ADD_QUANTITY,
 } from "./action-types/cart-actions"
 
-export const addToCart = id => {
+export const addToCart = product => {
   return {
     type: ADD_TO_CART,
-    id,
+    product,
   }
 }
 

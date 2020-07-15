@@ -128,7 +128,7 @@ class Cart extends Component {
               {this.props.items.length ? (
                 this.props.items.map(item => (
                   <tr key={item.id}>
-                    <th>{item.title}</th>
+                    <th>{item.name}</th>
                     <StyledQuantityWrapper>
                       <FiMinusCircle
                         className="StyledIcon"
@@ -159,7 +159,7 @@ class Cart extends Component {
             <p>
               Suma:
               <StyledEmphasis style={{ float: "right" }}>
-                {this.state.sum}zł
+                {this.props.totalPrice}zł
               </StyledEmphasis>
             </p>
             <Button isFilled style={{ width: "100%" }}>
@@ -174,7 +174,8 @@ class Cart extends Component {
 
 const mapStateToProps = state => {
   return {
-    items: state.addedItems,
+    items: state.items,
+    totalPrice: state.totalPrice,
   }
 }
 const mapDispatchToProps = dispatch => {

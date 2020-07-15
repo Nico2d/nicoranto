@@ -44,8 +44,8 @@ const ImageContainer = styled.div`
 `
 
 class CardList extends Component {
-  handleClick = id => {
-    this.props.addToCart(id)
+  handleClick = product => {
+    this.props.addToCart(product)
   }
 
   render() {
@@ -72,17 +72,21 @@ class CardList extends Component {
         render={({ allStrapiMenu: { edges } }) => (
           <CardListWrapper>
             {edges.map(dish => (
-              <Card key={dish.node.id} onDoubleClick={()=>{this.handleClick(dish.node.strapiId)}}>
+              <Card
+                key={dish.node.id}
+                onDoubleClick={() => {
+                  this.handleClick(dish.node)
+                }}
+              >
                 <ImageContainer>
                   <img
                     src={`http://localhost:1337${dish.node.image[0].url}`}
                     alt={dish.node.name}
-                    // style={{marginTop: "5px"}}
                   />
                 </ImageContainer>
 
                 <StyledName>{dish.node.name}</StyledName>
-                {/* <p>Price: {dish.node.price}</p> */}
+                <p>Price: {dish.node.price}</p>
               </Card>
             ))}
           </CardListWrapper>
@@ -100,8 +104,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addToCart: id => {
-      dispatch(addToCart(id))
+    addToCart: product => {
+      dispatch(addToCart(product))
     },
   }
 }
