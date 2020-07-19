@@ -25,16 +25,11 @@ const SearchSection = props => {
 
   return (
     <StyledSearchSection>
-      <Container >
+      <Container>
         <Searchbar query={query => setQuery(query)} />
         <StyledTip>*Użyj podwójnego kliknięcia aby dodać posiłek</StyledTip>
 
-        <div style={{overflow: "scroll", width: "100%"}}>
-          <CardList
-            onFocus={product => props.callBack(product)}
-            search={query}
-          />
-        </div>
+        <CardList onFocus={product => props.callBack(product)} search={query} />
       </Container>
     </StyledSearchSection>
   )

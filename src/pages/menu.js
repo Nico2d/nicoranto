@@ -62,7 +62,7 @@ const Menu = ({ data }) => {
           <Cart />
         </FlexWrapper>
 
-        <SearchSection callBack={changeFocus} />
+        <SearchSection callBack={changeFocus} style={{ flexGrow: 1 }} />
       </StyledConatiner>
     </Layout>
   )

@@ -1,9 +1,10 @@
-import React, { Component } from "react"
+import React from "react"
 import styled from "styled-components"
 import Button from "../components/button"
 import { FiPlusCircle, FiMinusCircle } from "react-icons/fi"
 import { connect } from "react-redux"
 import { addQuantity, subtractQuantity } from "../actions/cartActions"
+import Price from "../components/price"
 
 const StyledCart = styled.div`
   position: relative;
@@ -88,7 +89,7 @@ const StyledQuantity = styled.span`
   margin: 0 10px;
 `
 
-const Price = styled.th`
+const StyledPrice = styled.th`
   text-align: right;
 `
 const StyledQuantityWrapper = styled.th`
@@ -112,82 +113,64 @@ const StyledEmphasis = styled.span`
   text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.7);
 `
 
-class Cart extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { sum: 0 }
-  }
-
-  handleAddQuantity = id => {
-    this.props.addQuantity(id)
-    this.countFinalePrice()
-  }
-
-  handleSubtractQuantity = id => {
-    this.props.subtractQuantity(id)
-    this.countFinalePrice()
-  }
-
-  countFinalePrice = () => {
-    let sumProducts = 0
-    this.props.items.map(item => (sumProducts += item.price * item.quantity))
-    this.setState({ sum: sumProducts })
-  }
-
-  render() {
-    return (
-      <StyledCart>
-        <StyledWrapper>
-          <StyledHeader>Koszyk:</StyledHeader>
-          <StyledListWrapper>
-            <table>
-              <tbody>
-                {this.props.items.length ? (
-                  this.props.items.map(item => (
-                    <tr key={item.id}>
-                      <th>{item.name}</th>
-                      <StyledQuantityWrapper>
-                        <FiMinusCircle
-                          className="StyledIcon"
-                          onClick={() => {
-                            this.handleSubtractQuantity(item.id)
-                          }}
-                        />
-                        <StyledQuantity>x{item.quantity}</StyledQuantity>
-                        <FiPlusCircle
-                          className="StyledIcon"
-                          onClick={() => {
-                            this.handleAddQuantity(item.id)
-                          }}
-                        />
-                      </StyledQuantityWrapper>
-                      <Price>{item.price * item.quantity}zł</Price>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <th>-</th>
+const Cart = props => {
+  return (
+    <StyledCart>
+      <StyledWrapper>
+        <StyledHeader>Koszyk:</StyledHeader>
+        <StyledListWrapper>
+          <table>
+            <tbody>
+              {props.items.length ? (
+                props.items.map(item => (
+                  <tr key={item.id}>
+                    <th>{item.name}</th>
+                    <StyledQuantityWrapper>
+                      <FiMinusCircle
+                        className="StyledIcon"
+                        onClick={() => {
+                          props.subtractQuantity(item.id)
+                        }}
+                      />
+                      <StyledQuantity>x{item.quantity}</StyledQuantity>
+                      <FiPlusCircle
+                        className="StyledIcon"
+                        onClick={() => {
+                          props.addQuantity(item.id)
+                        }}
+                      />
+                    </StyledQuantityWrapper>
+                    <StyledPrice>
+                      <Price price={item.price * item.quantity} />
+                      zł
+                    </StyledPrice>
                   </tr>
-                )}
-              </tbody>
-            </table>
-          </StyledListWrapper>
+                ))
+              ) : (
+                <tr>
+                  <th>-</th>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </StyledListWrapper>
 
-          <StyledFoot>
-            <p>
-              Suma:
-              <StyledEmphasis style={{ float: "right" }}>
-                {this.props.totalPrice}zł
-              </StyledEmphasis>
-            </p>
-            <Button isFilled style={{ width: "100%" }}>
-              Przejdź do płatności
-            </Button>
-          </StyledFoot>
-        </StyledWrapper>
-      </StyledCart>
-    )
-  }
+        <StyledFoot>
+          <p style={{ display: "flex" }}>
+            Suma:
+            <StyledEmphasis style={{ flexGrow: 1, textAlign: "right" }}>
+              <Price price={props.totalPrice} />
+            </StyledEmphasis>
+            <StyledEmphasis>zł</StyledEmphasis>
+          </p>
+
+          <Button isFilled style={{ width: "100%" }}>
+            Przejdź do płatności
+          </Button>
+        </StyledFoot>
+      </StyledWrapper>
+    </StyledCart>
+  )
 }
 
 const mapStateToProps = state => {

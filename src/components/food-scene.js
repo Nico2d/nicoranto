@@ -1,13 +1,15 @@
 import styled from "styled-components"
-import React from "React"
+import React from "react"
 import { connect } from "react-redux"
 import StyledButton from "../components/button"
 import { addToCart } from "../actions/cartActions"
+import { motion, AnimatePresence } from "framer-motion"
 
 const StyledContainer = styled.div`
   position: relative;
   flex-grow: 1;
   margin-right: 3rem;
+  height: 100%;
 `
 const StyledImage = styled.img`
   position: absolute;
@@ -40,24 +42,34 @@ const FoodScene = props => {
   }
 
   return (
-    <StyledContainer>
-      <StyledImage
-        src={`http://localhost:1337${props.selectedProduct.image[0].url}`}
-      />
+    <AnimatePresence>
+      <StyledContainer>
+        <StyledContentWrapper
+          as={motion.div}
+          key={props.selectedProduct.id}
+          initial={{ x: 400, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          exit={{ x: -400, opacity: 0 }}
+        >
+          <div style={{ position: "relative" }}>
+            <StyledImage
+              src={`http://localhost:1337${props.selectedProduct.image[0].url}`}
+            />
+          </div>
+          <StyledName>{props.selectedProduct.name}</StyledName>
+          <StyledDescription>
+            {props.selectedProduct.description}
+          </StyledDescription>
+        </StyledContentWrapper>
 
-      <StyledContentWrapper>
-        <StyledName>{props.selectedProduct.name}</StyledName>
-        <StyledDescription>
-          {props.selectedProduct.description}
-        </StyledDescription>
-      </StyledContentWrapper>
-      <StyledButton
-        style={{ position: "absolute", bottom: "0", right: "0" }}
-        onClick={handlerClick}
-      >
-        Dodaj
-      </StyledButton>
-    </StyledContainer>
+        <StyledButton
+          style={{ position: "absolute", bottom: "0", right: "0" }}
+          onClick={handlerClick}
+        >
+          Dodaj
+        </StyledButton>
+      </StyledContainer>
+    </AnimatePresence>
   )
 }
 
