@@ -39,7 +39,7 @@ const StyledHeaderWrapper = styled.div`
 const Header = ({ siteTitle }) => (
   <StyledHeaderWrapper>
     <StyledHeaderContainer>
-      <StyledLogo isLogo as={Link} to="/">
+      <StyledLogo as={Link} to="/">
         nicoRANTO
       </StyledLogo>
 

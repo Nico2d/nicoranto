@@ -14,19 +14,20 @@ const StyledContainer = styled.div`
 const StyledImage = styled.img`
   position: absolute;
   left: -50%;
+  top: 0;
   z-index: -1;
 `
 
 const StyledName = styled.h1`
   color: ${({ theme }) => theme.colors.primary};
   text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.75);
-  font-size: 70px;
+  font-size: 60px;
 `
 
 const StyledDescription = styled.p`
   color: ${({ theme }) => theme.colors.white};
   text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.85);
-  font-size: 22px;
+  font-size: 20px;
 `
 
 const StyledContentWrapper = styled.div`
@@ -51,11 +52,9 @@ const FoodScene = props => {
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: -400, opacity: 0 }}
         >
-          <div style={{ position: "relative" }}>
             <StyledImage
               src={`http://localhost:1337${props.selectedProduct.image[0].url}`}
             />
-          </div>
           <StyledName>{props.selectedProduct.name}</StyledName>
           <StyledDescription>
             {props.selectedProduct.description}

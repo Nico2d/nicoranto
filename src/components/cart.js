@@ -15,7 +15,6 @@ const StyledCart = styled.div`
   flex-shrink: 0;
   border: solid 2px ${({ theme }) => theme.colors.primary};
   border-radius: 1.5rem;
-  margin-top: 2rem;
 
   ::before {
     content: "";
@@ -39,6 +38,10 @@ const StyledHeader = styled.h3`
 const StyledWrapper = styled.div`
   padding: 1.3rem;
   font-size: 16px;
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
 `
 
 const StyledListWrapper = styled.div`
@@ -48,6 +51,7 @@ const StyledListWrapper = styled.div`
   max-height: 130px;
   width: 100%;
   overflow-x: hidden;
+  flex-grow: 1;
 
   ::-webkit-scrollbar {
     all: unset;
@@ -87,6 +91,7 @@ const StyledFoot = styled.div`
 
 const StyledQuantity = styled.span`
   margin: 0 10px;
+  width: 25px;
 `
 
 const StyledPrice = styled.th`
@@ -124,7 +129,7 @@ const Cart = props => {
               {props.items.length ? (
                 props.items.map(item => (
                   <tr key={item.id}>
-                    <th>{item.name}</th>
+                    <th style={{width: "140px"}}>{item.name}</th>
                     <StyledQuantityWrapper>
                       <FiMinusCircle
                         className="StyledIcon"

@@ -46,11 +46,23 @@ const StyledPrice = styled.p`
   font-size: 14px;
 `
 
+const StyledArrow = styled.div`
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  /* right: ${props => (props.isRight ? "15%" : "unset")};
+  left: ${props => (props.isRight ? "unset" : "15%")}; */
+  ${props => (props.isRight ? "right" : "left")}: 15%;
+  top: 50%;
+  background-color: red;
+`
+
 const CardList = props => {
   const handleOnDragStart = e => e.preventDefault()
   const responsive = {
-    1024: { items: 6 },
+    0: { items: 6 },
   }
+  let Carousel = null
 
   return (
     <StaticQuery
@@ -73,44 +85,48 @@ const CardList = props => {
         }
       `}
       render={({ allStrapiMenu: { edges } }) => (
-        <AliceCarousel
-          mouseTrackingEnabled
-          responsive={responsive}
-          items={edges}
-          fadeOutAnimation={true}
-          swipeDelta={1}
-          dotsDisabled
-          buttonsDisabled={true}
-          infinite={false}
-        >
-          {edges
-            .filter(query =>
-              query.node.name.toLowerCase().includes(props.search)
-            )
-            .map(dish => (
-              <Card
-                key={dish.node.id}
-                onDragStart={handleOnDragStart}
-                onDoubleClick={() => {
-                  props.addToCart(dish.node)
-                }}
-                onClick={() => {
-                  props.onFocus(dish.node)
-                }}
-              >
-                <ImageContainer>
-                  <img
-                    src={`http://localhost:1337${dish.node.image[0].url}`}
-                    alt={dish.node.name}
-                    draggable={false}
-                  />
-                </ImageContainer>
+        <>
+          <AliceCarousel
+            mouseTrackingEnabled
+            responsive={responsive}
+            fadeOutAnimation={true}
+            dotsDisabled
+            buttonsDisabled={true}
+            infinite={false}
+            preservePosition={true}
+            ref={el => (Carousel = el)}
+          >
+            {edges
+              .filter(query =>
+                query.node.name.toLowerCase().includes(props.search)
+              )
+              .map(dish => (
+                <Card
+                  key={dish.node.id}
+                  onDragStart={handleOnDragStart}
+                  onDoubleClick={() => {
+                    props.addToCart(dish.node)
+                  }}
+                  onClick={() => {
+                    props.onFocus(dish.node)
+                  }}
+                >
+                  <ImageContainer>
+                    <img
+                      src={`http://localhost:1337${dish.node.image[0].url}`}
+                      alt={dish.node.name}
+                      draggable={false}
+                    />
+                  </ImageContainer>
 
-                <StyledName>{dish.node.name}</StyledName>
-                <StyledPrice>{dish.node.price.toFixed(2)}zł</StyledPrice>
-              </Card>
-            ))}
-        </AliceCarousel>
+                  <StyledName>{dish.node.name}</StyledName>
+                  <StyledPrice>{dish.node.price.toFixed(2)}zł</StyledPrice>
+                </Card>
+              ))}
+          </AliceCarousel>
+          <StyledArrow isRight onClick={() => Carousel.slideNext()} />
+          <StyledArrow onClick={() => Carousel.slidePrev()} />
+        </>
       )}
     />
   )

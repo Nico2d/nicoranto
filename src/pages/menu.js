@@ -6,6 +6,7 @@ import Cart from "../components/cart"
 import FoodScene from "../components/food-scene"
 import SearchSection from "../template/search-section"
 import { graphql } from "gatsby"
+import Header from "./../components/header"
 
 const GlobalStyle = createGlobalStyle`
   *::-webkit-scrollbar {
@@ -35,6 +36,7 @@ const StyledBackground = styled.div`
 const FlexWrapper = styled.div`
   width: 100vw;
   max-width: ${({ theme }) => theme.container}px;
+  max-height: 400px;
   margin: 0 auto;
   display: flex;
 `
@@ -53,7 +55,8 @@ const Menu = ({ data }) => {
       <GlobalStyle />
       <StyledConatiner>
         <StyledBackground />
-
+        <Header />
+        <div style={{ marginBottom: "100px" }}></div>
         <FlexWrapper>
           <FoodScene
             style={{ flexGrow: 1 }}
