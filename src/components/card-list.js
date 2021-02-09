@@ -5,6 +5,7 @@ import { connect } from "react-redux"
 import { addToCart } from "../actions/cartActions"
 import AliceCarousel from "react-alice-carousel"
 import "react-alice-carousel/lib/alice-carousel.css"
+import arrow from "../images/chevron-circle-right-solid.svg"
 
 const Card = styled.div`
   width: 130px;
@@ -54,7 +55,11 @@ const StyledArrow = styled.div`
   left: ${props => (props.isRight ? "unset" : "15%")}; */
   ${props => (props.isRight ? "right" : "left")}: 15%;
   top: 50%;
-  background-color: red;
+  /* background-color: red; */
+
+  /* cursor: pointer; */
+
+  /* background-image: url(arrow); */
 `
 
 const CardList = props => {
@@ -63,6 +68,8 @@ const CardList = props => {
     0: { items: 6 },
   }
   let Carousel = null
+
+  console.log(arrow)
 
   return (
     <StaticQuery
@@ -77,7 +84,7 @@ const CardList = props => {
                 strapiId
                 description
                 image {
-                  url
+                  publicURL
                 }
               }
             }
@@ -113,7 +120,7 @@ const CardList = props => {
                 >
                   <ImageContainer>
                     <img
-                      src={`http://localhost:1337${dish.node.image[0].url}`}
+                      src={`${dish.node.image.publicURL}`}
                       alt={dish.node.name}
                       draggable={false}
                     />

@@ -42,6 +42,8 @@ const FoodScene = props => {
     props.addToCart(props.selectedProduct)
   }
 
+  console.log(props.selectedProduct.image.publicURL)
+
   return (
     <AnimatePresence>
       <StyledContainer>
@@ -52,9 +54,7 @@ const FoodScene = props => {
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: -400, opacity: 0 }}
         >
-            <StyledImage
-              src={`http://localhost:1337${props.selectedProduct.image[0].url}`}
-            />
+          <StyledImage src={`${props.selectedProduct.image.publicURL}`} />
           <StyledName>{props.selectedProduct.name}</StyledName>
           <StyledDescription>
             {props.selectedProduct.description}

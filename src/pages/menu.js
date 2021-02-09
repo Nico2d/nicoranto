@@ -81,10 +81,9 @@ export const query = graphql`
           id
           name
           price
-          strapiId
           description
           image {
-            url
+            publicURL
           }
         }
       }
