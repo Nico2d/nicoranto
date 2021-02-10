@@ -39,7 +39,7 @@ module.exports = {
       resolve: `gatsby-source-strapi`,
       options: {
         apiURL: process.env.DEPLOY_URL
-          ? "https://co-tam-profesorku-backend.herokuapp.com/"
+          ? "https://co-tam-profesorku-backend.herokuapp.com"
           : "http://localhost:1337",
         contentTypes: [`menu`],
         queryLimit: 1000,
