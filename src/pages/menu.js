@@ -13,11 +13,12 @@ const GlobalStyle = createGlobalStyle`
     display: none;
   }
 `
-const StyledConatiner = styled.div`
+const StyledContainer = styled.div`
   height: 100vh;
   width: 100vw;
   display: flex;
   flex-flow: column;
+  padding-bottom: 300px;
 `
 
 const StyledBackground = styled.div`
@@ -37,7 +38,7 @@ const FlexWrapper = styled.div`
   width: 100vw;
   max-width: ${({ theme }) => theme.container}px;
   max-height: 400px;
-  margin: 0 auto;
+  margin: auto;
   display: flex;
 `
 
@@ -53,7 +54,7 @@ const Menu = ({ data }) => {
   return (
     <Layout>
       <GlobalStyle />
-      <StyledConatiner>
+      <StyledContainer>
         <StyledBackground />
         <Header />
         <div style={{ marginBottom: "100px" }}></div>
@@ -66,7 +67,7 @@ const Menu = ({ data }) => {
         </FlexWrapper>
 
         <SearchSection callBack={changeFocus} style={{ flexGrow: 1 }} />
-      </StyledConatiner>
+      </StyledContainer>
     </Layout>
   )
 }

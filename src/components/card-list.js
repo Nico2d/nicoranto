@@ -8,11 +8,10 @@ import "react-alice-carousel/lib/alice-carousel.css"
 import arrow from "../images/chevron-circle-right-solid.svg"
 
 const Card = styled.div`
-  width: 130px;
+  width: 150px;
   height: 180px;
   background-color: white;
   border-radius: 1rem;
-  padding-right: 8px;
   overflow: hidden;
   cursor: pointer;
   user-select: none;
@@ -20,15 +19,26 @@ const Card = styled.div`
 `
 
 const StyledName = styled.h6`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  margin: 0 5px 1px 5px;
+  height: 55px;
+  padding: 0 0.5rem;
+  font-size: 16px;
 `
 
-const ImageContainer = styled.div`
-  height: 100px;
+const ImageWrapper = styled.div`
+  height: 125px;
   overflow: hidden;
-  margin: 10px 0;
   position: relative;
+  display: flex;
+  flex-flow: column;
+
+  > img {
+    object-fit: contain;
+    height: 120px;
+  }
 
   ::after {
     content: "";
@@ -42,24 +52,12 @@ const ImageContainer = styled.div`
   }
 `
 
-const StyledPrice = styled.p`
-  text-align: center;
-  font-size: 14px;
-`
-
 const StyledArrow = styled.div`
   width: 30px;
   height: 30px;
   position: absolute;
-  /* right: ${props => (props.isRight ? "15%" : "unset")};
-  left: ${props => (props.isRight ? "unset" : "15%")}; */
   ${props => (props.isRight ? "right" : "left")}: 15%;
   top: 50%;
-  /* background-color: red; */
-
-  /* cursor: pointer; */
-
-  /* background-image: url(arrow); */
 `
 
 const CardList = props => {
@@ -68,8 +66,6 @@ const CardList = props => {
     0: { items: 6 },
   }
   let Carousel = null
-
-  console.log(arrow)
 
   return (
     <StaticQuery
@@ -118,16 +114,15 @@ const CardList = props => {
                     props.onFocus(dish.node)
                   }}
                 >
-                  <ImageContainer>
+                  <ImageWrapper>
                     <img
                       src={`${dish.node.image.publicURL}`}
                       alt={dish.node.name}
                       draggable={false}
                     />
-                  </ImageContainer>
+                  </ImageWrapper>
 
                   <StyledName>{dish.node.name}</StyledName>
-                  <StyledPrice>{dish.node.price.toFixed(2)}zł</StyledPrice>
                 </Card>
               ))}
           </AliceCarousel>
