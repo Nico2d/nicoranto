@@ -42,8 +42,6 @@ const FoodScene = props => {
     props.addToCart(props.selectedProduct)
   }
 
-  console.log(props.selectedProduct.image.publicURL)
-
   return (
     <AnimatePresence>
       <StyledContainer>

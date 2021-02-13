@@ -6,6 +6,7 @@ import { addToCart } from "../actions/cartActions"
 import AliceCarousel from "react-alice-carousel"
 import "react-alice-carousel/lib/alice-carousel.css"
 import arrow from "../images/chevron-circle-right-solid.svg"
+import { motion } from "framer-motion"
 
 const Card = styled.div`
   width: 150px;
@@ -113,6 +114,8 @@ const CardList = props => {
                   onClick={() => {
                     props.onFocus(dish.node)
                   }}
+                  as={motion.div}
+                  whileTap={{ scale: 0.9 }}
                 >
                   <ImageWrapper>
                     <img
