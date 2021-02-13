@@ -25,6 +25,7 @@ const StyledSearchbar = styled.input`
 
   ::placeholder {
     opacity: 1;
+    color: inherit;
   }
 `
 

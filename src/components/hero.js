@@ -1,8 +1,9 @@
 import React from "react"
 import styled from "styled-components"
-import Background from "../images/7.jpg"    // 2 i 7 - best
+import Background from "../images/7.jpg" // 2 i 7 - best
 
 const StyledHero = styled.h1`
+  margin: 0;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -33,7 +34,9 @@ const Hero = () => (
     <StyledHeroDescription>
       Pomsył, Realizacja, Dopracowanie
     </StyledHeroDescription>
-    <StyledHeroDescription style={{fontWeight: 400, fontSize: "38px",marginTop: "27px"}}>
+    <StyledHeroDescription
+      style={{ fontWeight: 400, fontSize: "38px", marginTop: "27px" }}
+    >
       Zamów do stołu!
     </StyledHeroDescription>
   </StyledHero>

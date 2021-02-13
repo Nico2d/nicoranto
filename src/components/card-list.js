@@ -25,6 +25,7 @@ const Card = styled.div`
 `
 
 const StyledName = styled.h6`
+  margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -63,8 +64,14 @@ const StyledArrow = styled.div`
   width: 30px;
   height: 30px;
   position: absolute;
-  ${props => (props.isRight ? "right" : "left")}: 15%;
+  /* ${({ isRight }) => (isRight ? "right" : "left")}: 15%; */
+  transform: rotate(${({ isRight }) => (isRight ? "0deg" : "180deg")});
   top: 50%;
+  background-image: url(${arrow});
+  cursor: pointer;
+
+  /* left: calc(50% ${({ isRight }) => (isRight ? "+500px" : "-500px")}); */
+  ${({ isRight }) => (isRight ? "right" : "left")}: calc(50% - 550px);
 `
 
 const CardList = props => {

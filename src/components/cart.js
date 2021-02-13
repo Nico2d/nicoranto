@@ -48,10 +48,10 @@ const StyledListWrapper = styled.div`
   margin: 0;
   padding-right: 7px;
   overflow: scroll;
-  max-height: 130px;
   width: 100%;
   overflow-x: hidden;
   flex-grow: 1;
+  text-align: left;
 
   ::-webkit-scrollbar {
     all: unset;
@@ -66,10 +66,14 @@ const StyledListWrapper = styled.div`
     border-radius: 4px;
   }
 
+  table {
+    width: 100%;
+  }
+
   th {
-    padding: 0;
     font-weight: 400;
     font-size: 16px;
+    padding-bottom: 8px;
   }
 `
 
@@ -129,7 +133,7 @@ const Cart = props => {
               {props.items.length ? (
                 props.items.map(item => (
                   <tr key={item.id}>
-                    <th style={{width: "140px"}}>{item.name}</th>
+                    <th style={{ width: "140px" }}>{item.name}</th>
                     <StyledQuantityWrapper>
                       <FiMinusCircle
                         className="StyledIcon"
