@@ -6,29 +6,47 @@ import { addToCart } from "../actions/cartActions"
 import AliceCarousel from "react-alice-carousel"
 import "react-alice-carousel/lib/alice-carousel.css"
 import arrow from "../images/chevron-circle-right-solid.svg"
+import { motion } from "framer-motion"
 
 const Card = styled.div`
-  width: 130px;
+  width: 150px;
   height: 180px;
-  background-color: white;
+  background: linear-gradient(
+    to left top,
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0.8)
+  );
   border-radius: 1rem;
-  padding-right: 8px;
   overflow: hidden;
   cursor: pointer;
   user-select: none;
   margin-top: 11px;
+  box-shadow: 6px 6px 20px rgba(122, 122, 122, 0.2);
 `
 
 const StyledName = styled.h6`
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  margin: 0 5px 1px 5px;
+  height: 55px;
+  padding: 0 0.5rem;
+  font-size: 16px;
 `
 
-const ImageContainer = styled.div`
-  height: 100px;
+const ImageWrapper = styled.div`
+  height: 125px;
   overflow: hidden;
-  margin: 10px 0;
   position: relative;
+  display: flex;
+  flex-flow: column;
+
+  > img {
+    object-fit: contain;
+    height: 120px;
+    padding: 0 1rem;
+  }
 
   ::after {
     content: "";
@@ -42,24 +60,15 @@ const ImageContainer = styled.div`
   }
 `
 
-const StyledPrice = styled.p`
-  text-align: center;
-  font-size: 14px;
-`
-
 const StyledArrow = styled.div`
   width: 30px;
   height: 30px;
   position: absolute;
-  /* right: ${props => (props.isRight ? "15%" : "unset")};
-  left: ${props => (props.isRight ? "unset" : "15%")}; */
-  ${props => (props.isRight ? "right" : "left")}: 15%;
+  transform: rotate(${({ isRight }) => (isRight ? "0deg" : "180deg")});
   top: 50%;
-  /* background-color: red; */
-
-  /* cursor: pointer; */
-
-  /* background-image: url(arrow); */
+  background-image: url(${arrow});
+  cursor: pointer;
+  ${({ isRight }) => (isRight ? "right" : "left")}: calc(50% - 550px);
 `
 
 const CardList = props => {
@@ -68,8 +77,6 @@ const CardList = props => {
     0: { items: 6 },
   }
   let Carousel = null
-
-  console.log(arrow)
 
   return (
     <StaticQuery
@@ -117,17 +124,18 @@ const CardList = props => {
                   onClick={() => {
                     props.onFocus(dish.node)
                   }}
+                  as={motion.div}
+                  whileTap={{ scale: 0.9 }}
                 >
-                  <ImageContainer>
+                  <ImageWrapper>
                     <img
                       src={`${dish.node.image.publicURL}`}
                       alt={dish.node.name}
                       draggable={false}
                     />
-                  </ImageContainer>
+                  </ImageWrapper>
 
                   <StyledName>{dish.node.name}</StyledName>
-                  <StyledPrice>{dish.node.price.toFixed(2)}zł</StyledPrice>
                 </Card>
               ))}
           </AliceCarousel>
