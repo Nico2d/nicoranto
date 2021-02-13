@@ -64,13 +64,10 @@ const StyledArrow = styled.div`
   width: 30px;
   height: 30px;
   position: absolute;
-  /* ${({ isRight }) => (isRight ? "right" : "left")}: 15%; */
   transform: rotate(${({ isRight }) => (isRight ? "0deg" : "180deg")});
   top: 50%;
   background-image: url(${arrow});
   cursor: pointer;
-
-  /* left: calc(50% ${({ isRight }) => (isRight ? "+500px" : "-500px")}); */
   ${({ isRight }) => (isRight ? "right" : "left")}: calc(50% - 550px);
 `
 
