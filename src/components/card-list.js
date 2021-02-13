@@ -11,12 +11,17 @@ import { motion } from "framer-motion"
 const Card = styled.div`
   width: 150px;
   height: 180px;
-  background-color: white;
+  background: linear-gradient(
+    to left top,
+    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0.8)
+  );
   border-radius: 1rem;
   overflow: hidden;
   cursor: pointer;
   user-select: none;
   margin-top: 11px;
+  box-shadow: 6px 6px 20px rgba(122, 122, 122, 0.2);
 `
 
 const StyledName = styled.h6`
@@ -39,6 +44,7 @@ const ImageWrapper = styled.div`
   > img {
     object-fit: contain;
     height: 120px;
+    padding: 0 1rem;
   }
 
   ::after {

@@ -47,13 +47,13 @@ const Header = ({ siteTitle }) => (
         <StyledLink as={Link} to="/menu">
           Menu
         </StyledLink>
-        <StyledLink as={Link} to="/gallery">
+        <StyledLink as={Link} >
           Galeria
         </StyledLink>
-        <StyledLink as={Link} to="/about-us">
+        <StyledLink as={Link}>
           Poznaj nas
         </StyledLink>
-        <StyledLink as={Link} to="/contact">
+        <StyledLink as={Link} >
           Kontakt
         </StyledLink>
       </StyledLinkWrapper>

@@ -9,6 +9,7 @@ const StyledButton = styled.button`
   padding: 5px 2.5rem;
   color: ${({ isFilled }) => (isFilled ? "black" : primary)};
   font-weight: ${({ isFilled }) => (isFilled ? "bold" : "regular")};
+  cursor: pointer;
 `
 
 export default StyledButton
